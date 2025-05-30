@@ -63,9 +63,9 @@ jobs:
               return;
             }
 
-            const endDateField = projectV2.fields.nodes.find(f => f.name === "End Date");
+            const endDateField = projectV2.fields.nodes.find(f => f.name === "End date");
             if (!endDateField) {
-              throw new Error("Could not find a field named “End Date” on the project.");
+              throw new Error("Could not find a field named “End date” on the project.");
             }
 
             // === 2) Mutation: update the End Date field value ===
