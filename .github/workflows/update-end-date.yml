@@ -1,0 +1,93 @@
+name: Sync End Date from Milestone
+
+# 1) Trigger when an issue’s milestone is added or removed
+on:
+  issues:
+    types: [milestoned, demilestoned]
+
+permissions:
+  issues: write
+  project: write
+
+jobs:
+  sync-end-date:
+    runs-on: ubuntu-latest
+    steps:
+      # 2) Checkout (not strictly needed for github-script, but a harmless default)
+      - uses: actions/checkout@v3
+
+      # 3) Use github-script to do the GraphQL calls
+      - name: Update Project “End Date” field
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue    = context.payload.issue;
+            const milestone = issue.milestone;
+
+            // If milestone was removed, clear the End Date (optional)
+            const dateValue = milestone ? milestone.due_on.split('T')[0] : null;
+
+            // === 1) Query: get the ProjectV2 item ID for this issue, and the Project ID & field ID ===
+            const queryResult = await github.graphql(
+              `
+              query($owner:String!, $repo:String!, $number:Int!, $projNumber:Int!) {
+                repository(owner:$owner, name:$repo) {
+                  issue(number:$number) {
+                    projectItems(first:1) {
+                      nodes { id }
+                    }
+                  }
+                }
+                organization(login:$owner) {
+                  projectV2(number:$projNumber) {
+                    id
+                    fields(first:50) {
+                      nodes { id name }
+                    }
+                  }
+                }
+              }
+              `,
+              {
+                owner: context.repo.owner,
+                repo:  context.repo.repo,
+                number: issue.number,
+                projNumber: 2              // ← replace with your Project number
+              }
+            );
+
+            const projectV2      = queryResult.organization.projectV2;
+            const itemId         = queryResult.repository.issue.projectItems.nodes[0]?.id;
+            if (!itemId) {
+              core.info("Issue is not on the project, nothing to do.");
+              return;
+            }
+
+            const endDateField = projectV2.fields.nodes.find(f => f.name === "End Date");
+            if (!endDateField) {
+              throw new Error("Could not find a field named “End Date” on the project.");
+            }
+
+            // === 2) Mutation: update the End Date field value ===
+            await github.graphql(
+              `
+              mutation($projectId:ID!, $itemId:ID!, $fieldId:ID!, $dateValue:String) {
+                updateProjectV2ItemFieldValue(input:{
+                  projectId: $projectId,
+                  itemId:    $itemId,
+                  fieldId:   $fieldId,
+                  value: { date: $dateValue }
+                }) {
+                  projectItem { id }
+                }
+              }
+              `,
+              {
+                projectId: projectV2.id,
+                itemId:    itemId,
+                fieldId:   endDateField.id,
+                dateValue
+              }
+            );
+
+            core.info(`Set "End Date" to ${dateValue || "null (cleared)"}`);
