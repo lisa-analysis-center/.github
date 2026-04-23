@@ -2,10 +2,12 @@
 
 ## About
 
-The LISA Analysis Center on GitHub is a collaborative space dedicated to research and development of analysis pipelines for LISA (Laser Interferometer Space Antenna) data. This organization hosts several repositories under development to address research and development priorities for end to end LISA data processing, including noise reduction, gravitational wave signal extraction, and catalog production.
+The LISA Analysis Center on GitHub is a collaborative space dedicated to research and development of analysis pipelines for LISA (Laser Interferometer Space Antenna) data. LISA is an ESA-led mission to survey the gravitational wave sky at mHz frequencies.
 
-These repositories provide tools and resources for researchers and developers to contribute to LISA data analysis investigations. The collaboration space is designed to facilitate the development, testing, and sharing of code and data related to gravitational wave detection and analysis.
+This organization hosts several repositories under development to address research and development priorities for end to end LISA data processing, including noise reduction, gravitational wave signal extraction, and catalog production.  These repositories provide tools and resources for researchers and developers to contribute to LISA data analysis investigations. The collaboration space is designed to facilitate the development, testing, and sharing of code and data related to gravitational wave detection and analysis.
 
+Note that this is distinctive from the European-led Distributed Data Processing Center, which has its own procedures for contributions.
+ 
 Feel free to explore these repositories to learn more about their capabilities and potentially make contributions.
 
 ## Contribution Guidelines
