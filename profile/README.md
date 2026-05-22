@@ -1,8 +1,8 @@
-# LISA Analysis Center
+# NLAC
 
 ## About
 
-The LISA Analysis Center on GitHub is a collaborative space dedicated to research and development of analysis pipelines for LISA (Laser Interferometer Space Antenna) data. LISA is an ESA-led mission to survey the gravitational wave sky at mHz frequencies.
+The NLAC collaboration on GitHub is a space dedicated to research and development of analysis pipelines for LISA (Laser Interferometer Space Antenna) data. LISA is an ESA-led mission to survey the gravitational wave sky at mHz frequencies.
 
 This collaborative space is organized under the initiative of the US-based LISA Project Science Office and NSGS, as part of the US contribution to the overall LISA Science Ground Segment. This is distinctive from the European-led Distributed Data Processing Center, which has its own procedures for contributions.
 
