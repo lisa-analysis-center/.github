@@ -12,9 +12,14 @@ Feel free to explore these repositories to learn more about their capabilities a
 
 ## Contribution Guidelines
 
-## Useful Resources
+Before your code can be merged into our repositories, we require a contributor license agreement (CLA) for individual and corporate contributors. You can submit this by downloading, signing, and emailing the appropriate form to <> and copy <>.
 
+- [Corporate CLA](LISA_NASA_corporate_CLA_form.pdf)
+- [Individual CLA](LISA_NASA_individual_CLA_form.pdf)
+  
 <!--
+
+## Useful Resources
 
 **Here are some ideas to get you started:**
 
